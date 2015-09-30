@@ -33,7 +33,7 @@
 					likes:0}, function(err, recipe){
 					if(err){
 						res.send(err);}
-					res.redirect("/"+recipe.recipeID);
+					res.redirect("/recipe/"+recipe.recipeID);
 				})}
 			else{
 				res.send(true);
