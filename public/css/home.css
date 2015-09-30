@@ -1,0 +1,25 @@
+/* Home.html css*/
+body{
+padding-top: 80px;
+}
+#navbar-search{
+	width: 75px;
+	text-align: center;
+}
+
+#navbar-search:focus{
+	animation: growBar .5s ease-out forwards;
+}
+
+@keyframes growBar{
+	to{width: 200px; }
+}
+@-webkit-keyframes growBar{
+	to{width: 200px; }
+}
+@keyframes shrinkBar{
+	to{width: 75px; }
+}
+@-webkit-keyframes shrinkBar{
+	to{width: 75px; }
+}
