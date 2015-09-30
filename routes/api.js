@@ -20,7 +20,7 @@
 		var myRecipe= req.body,
 		myRecipeID = recipeIDMaker(myRecipe.name)
 		Recipe.find({'recipeID':mrRecipeID},function(err,recipe1){
-			if(!recipe1){
+			if(!recipe1.length){
 				Recipe.create({
 					name: properCase(myRecipe.name),
 					recipeId: mrRecipeID,
