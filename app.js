@@ -27,7 +27,13 @@
 	app.use('/', routes);
 
 //===Connect to the data base===========================
-mongoose.connect("mongodb://localhost/kate-kitchen");
+	mongoose.connect("mongodb://localhost/kate-kitchen");
+	/*=== test the connection ==========================
+		var db = mongoose.connection;
+		db.on("error", console.error.bind(console, 'connection error:'));
+		db.once('open', function(){
+			console.log("Connected to DB!")
+		});*/
 	
 
 //===Start app up===================================
