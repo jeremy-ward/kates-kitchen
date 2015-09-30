@@ -26,12 +26,14 @@ var testObj={title: "Mac and Cheese",
 //=== Recipe Route ==============================
 	router.get("/recipe/:id", function(req,res){
 		model.Recipe.find({recipeID: req.params.id}, function(err,recipe){
-			if(err)
-				res.send(err);
-			else if(recipe)
-				res.render('recipe', recipe);
-			else
-				res.status(404).send("Not Found");  //this is crashing the app as headers cannot be set after send?
+			if(!recipe.length){
+				res.status(404).render('404');
+			}
+			else{
+				if(err)
+					res.send(err);
+			//res.render('recipe', recipe);
+			}	
 		});
 		
 	});
