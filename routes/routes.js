@@ -32,7 +32,7 @@ var testObj={title: "Mac and Cheese",
 			else{
 				if(err)
 					res.send(err);
-			//res.render('recipe', recipe);
+			res.render('recipe', recipe);
 			}	
 		});
 		
