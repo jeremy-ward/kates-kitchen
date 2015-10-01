@@ -5,8 +5,10 @@
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/journal/bootstrap.min.css" rel="stylesheet" integrity="sha256-bPSyJP9+ovy9/YbIwvZyX6r2M4PkiF01vt0zuDLUEzs= sha512-F4ep7hh9V7i7UvRF56Vq8VgjFIFGRVaE2y5UZ2FtIcMWoLFiDxTmHgnDm1XDZGcc6Vtp+kwtL0Kd3VA8uBMK9g==" crossorigin="anonymous">	
 	<link rel="stylesheet" href="css/common.css">
 	<title>Kate's Kitchen</title>
+	<script src="javascript/angular.min.js"></script>
+	<script src="javascript/add-recipe.js"></script>
 </head>
-<body>
+<body ng-app="add-app" ng-controller="main-controller">
 	<% include ./templates/nav-header.ejs %>
 	<div class="container">
 		<div class="jumbotron">
@@ -15,41 +17,43 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12 text-right">
-					<h2><input class="text-center" type="text" placeholder="Recipe Title"></h2>
+					<h2>
+						<small ng-show="sameRecipe" class="text-danger">Recipe Name already taken.  Please pick different name.</small>
+						<input class="text-center" type="text" placeholder="Recipe Title" ng-model="recipe.title">
+					</h2>
 				</div>
 			</div>
 			<div class="row text-right">
 				<div class="col-md-offset-6 col-md-3 text-right">
-					<input type="text" class="text-center"placeholder="Meal">
+					<input type="text" class="text-center"placeholder="Meal" ng-model="recipe.meal">
 				</div>
 				<div class="col-md-3" text-right"">
-					<input type="text" class="text-center" placeholder="Number of Servings">
+					<input type="number" class="text-center" placeholder="Number of Servings" ng-model="recipe.servings">
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-12"><input type="text" placeholder="Description"></div>
+				<div class="col-xs-12"><input type="text" placeholder="Description" ng-model="recipe.desc"></div>
 			</div>
 			<div class="row">
 				<h3>Ingredients:</h3>
-				<ul>
-					<li><input type="text" class="text-center" placeholder="Ingredient 1"></li>
-					<li><input type="text" class="text-center" placeholder="Ingredient 2"></li>
-					<li><input type="text" class="text-center" placeholder="Ingredient 3"></li>
+				<ul id="ingredients">
+					<li><input type="text" class="ingr text-center" placeholder="Ingredient 1"></li>
+					<li><input type="text" class="ingr text-center" placeholder="Ingredient 2"></li>
 				</ul>
 			</div>
 			<div class="row">
 				<h3>Instructions:</h3>
-				<textarea name="instructions" id="" cols="100" rows="8"></textarea>
+				<textarea name="instructions" id="" cols="100" rows="8" ng-model="recipe.steps"></textarea>
 			</div>
 			<div class="row">
 				<div class="col-xs-12 text-right">
-					<small>From the kitchen of <em><input type="text"></em></small>
+					<small>From the kitchen of <em><input type="text" ng-model="recipe.author"></em></small>
 				</div>
 				
 			</div>
 			<div class="row">
 				<div class="col-xs-12 text-right">
-					<button class="btn btn-primary">Submit</button>
+					<button class="btn btn-primary" ng-click="sendRecipe()">Submit</button>
 				</div>
 			</div>
 		</div>
