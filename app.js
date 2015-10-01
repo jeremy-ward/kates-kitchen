@@ -13,6 +13,7 @@
 	var app = express();
 	
 	var routes=require("./routes/routes");
+	var api =require("./routes/api");
 
 //===configure the application==========================
 	app.use(express.static(path.join(__dirname,"public")));
@@ -25,6 +26,7 @@
 
 //=== include routes and api ===========================
 	app.use('/', routes);
+	app.use("/api", api);
 
 //===Connect to the data base===========================
 	mongoose.connect("mongodb://localhost/kate-kitchen");
