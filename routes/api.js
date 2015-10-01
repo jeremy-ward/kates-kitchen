@@ -3,27 +3,27 @@
 //===Get required tools===============================
 	var express=require('express');
 	var api=express.Router();
-
+	var model =require("../models/models");
 //=== functions to adjust/verify data ======================
 	function recipeIDMaker(recipe){
 		return recipe.replace(/ +/g,"-").replace(/(?!-)\W/g,"").toLowerCase();
 	}
 
 	function properCase(str){
-		return str.replace(/\b(?!and|or|with)\w/g,function(letter){return letter.toUpperCase()}).replace(/ {2,}/g," ");
+		return str.toLowerCase().replace(/\b(?!and|or|with)\w/g,function(letter){return letter.toUpperCase()}).replace(/ {2,}/g," ");
 	}	
 
 //===API=========================================
 
 //=== Post new recipe to database ==================
 	api.post("/add", function(req, res){
-		var myRecipe= req.body,
-		myRecipeID = recipeIDMaker(myRecipe.name)
-		Recipe.find({'recipeID':mrRecipeID},function(err,recipe1){
+		var myRecipe= req.body;
+		myRecipeID = recipeIDMaker(myRecipe.title)
+		model.Recipe.find({'recipeID':myRecipeID},function(err,recipe1){
 			if(!recipe1.length){
-				Recipe.create({
-					name: properCase(myRecipe.name),
-					recipeId: mrRecipeID,
+				model.Recipe.create({
+					title: properCase(myRecipe.title),
+					recipeID: myRecipeID,
 					ingredients: myRecipe.ingredients,
 					servings: myRecipe.servings,
 					steps: myRecipe.steps,
@@ -33,18 +33,18 @@
 					likes:0}, function(err, recipe){
 					if(err){
 						res.send(err);}
-					res.redirect("/recipe/"+recipe.recipeID);
+					res.send(recipe);
 				})}
 			else{
-				res.send(true);
+				res.send(false);
 			}
 		});
 	});
 	
 	//=== Allow visitor to like a recipe ===================
 	api.post("/likerecipe",function(req,res){
-		var myRecipe = req.body
-		Recipe.findById(myRecipe.id, function(err,recipe){
+		var myRecipe = req.body;
+		model.Recipe.findById(myRecipe.id, function(err,recipe){
 			if(err)
 				res.send(err);
 			recipe.likes++;
